@@ -384,8 +384,6 @@
         },
     };
 
-    // TODO: If we replace reduce with for loop = faster?
-    // TODO: Do the operators need an accumulator, or only the sink?
     // Operators
     // ----------
     function map$1(transform) {
@@ -469,10 +467,10 @@
         tests: {
             "map-filter-forEach": {
                 test: (arr, onComplete) => {
-                    let count$$1 = 0;
-                    const doSomething = (_value) => count$$1++;
+                    let count = 0;
+                    const doSomething = (_value) => count++;
                     pipe$1(arr, map$1(kelvinToCelcius), filter$1(isLiquid), forEach$1(doSomething));
-                    onComplete(count$$1);
+                    onComplete(count);
                 },
             },
             "map-array": {

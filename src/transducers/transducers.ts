@@ -1,6 +1,3 @@
-// TODO: If we replace reduce with for loop = faster?
-// TODO: Do the operators need an accumulator, or only the sink?
-
 // Operators
 // ----------
 export function map<T, U>(transform: (value: T) => U): IChainableReducer<T, U> {
@@ -64,21 +61,6 @@ export function sum<T>() {
 	};
 }
 
-export function count() {
-
-	function countStepper(acc, _value) {
-		return acc + 1;
-	}
-
-	return function countIterating<T>(iterable: Iterable<T>, reducer: IChainableReducer<T, number>) {
-		let count = 0;
-		for (const value of iterable) {
-			count = reducer(countStepper)(count, value);
-		}
-		return count;
-	};
-}
-
 export function forEach<T>(cb: (value: T, index: number) => any) {
 
 	let index = 0;
@@ -119,11 +101,7 @@ export function pipe<TIn, TResult, T1, T2>(
 	transform: (iterable: Iterable<TIn>, reducer: IChainableReducer<T2, TResult>) => TResult,
 ): TResult;
 
-export function pipe<
-	TIn,
-	TResult,
-	T1,
->(
+export function pipe<TIn, TResult, T1>(
 	iterable: Iterable<TIn>,
 	operator1: IChainableReducer<TIn, T1>,
 	transform: (iterable: Iterable<TIn>, reducer: IChainableReducer<T1, TResult>) => TResult,

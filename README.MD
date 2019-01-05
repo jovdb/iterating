@@ -113,7 +113,7 @@ It depends on what you do, on how much elements and on which browser.
 
 If you want to use operators (`filter`, `map`, ...), it seems fine to keep using the native **array methods**. 
 
-- They are quite fast (expect on Chrome when using > 50.000 elements)
+- they are quite fast (expect on Chrome when using > 50.000 elements)
 - every developer understands them
 - easy to debug.
 
@@ -134,3 +134,5 @@ If:
 - you have many chained operators
 
 then nothing can beat a good old dirty `for` loop (`for-of` for iterators)!
+
+*Jo Van den Berghe*

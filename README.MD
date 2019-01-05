@@ -104,7 +104,7 @@ const result = pipe(
 
 - Generators are JavaScript's standard way of processing element-by-element instead of list-per-list but are still quite slow, especially on Firefox en Edge
 
-- Callbags are fast on Edge and Firefox, but slow on Chrome when processing a limited amount of elements: < #100.000. They are powerful tool that also can be used for reactive programming, but quite hard to master.
+- Callbags are fast on Edge and Firefox, but slow on Chrome when processing a limited amount of elements: < #10.000. They are powerful tool that also can be used for reactive programming, but quite hard to master.
 
 
 ## My conclusion
@@ -113,7 +113,7 @@ It depends on what you do, on how much elements and on which browser.
 
 If you want to use operators (`filter`, `map`, ...), it seems fine to keep using the native **array methods**. 
 
-- they are quite fast (expect on Chrome when using > 50.000 elements)
+- they are quite fast (except on Chrome when using > 50.000 elements)
 - every developer understands them
 - easy to debug.
 
@@ -125,7 +125,7 @@ If you want lazy evaluation or work with iterators, you need to choose one of th
 
 Using **Generators** is the most 'standard' solution but is still slow, especially on Firefox and Edge.
 
-**Callbags** have a good overall performance on all browsers (expect on Chrome when using < 10.000 elements). If you (and some other team members) understand them and you can write your own operators this could be a powerful way of working.
+**Callbags** have a good overall performance on all browsers (except on Chrome when using < 10.000 elements). If you (and some other team members) understand them and you can write your own operators this could be a powerful way of working.
 
 If:
 - performance matters

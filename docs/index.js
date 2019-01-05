@@ -20,14 +20,6 @@
         return degCelcius > 0 && degCelcius < 100;
     }
 
-    var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    };
     const tests = {
         "map-filter-array": {
             description: "Perform a map, filter and convert the result back to an array (if needed)",
@@ -95,49 +87,45 @@
             });
         });
     }
-    function startTest(testName = "map-filter-array", includeNoOperators = false) {
-        return __awaiter(this, void 0, void 0, function* () {
-            hooks.forEach(hook => {
-                hook.onStart(lengths);
-            });
-            // Use test of all testSets
-            return forEachAsync(Object.keys(testSets), (testSetName) => __awaiter(this, void 0, void 0, function* () {
-                const testInfo = testSets[testSetName];
-                if (!testInfo || !testInfo.tests || (!includeNoOperators && !testInfo.hasOperators))
-                    return Promise.resolve();
-                const test = testInfo.tests[testName].test;
-                const rowInfo = hooks.map(hook => hook.onNewSet(testSetName, test.toString()));
-                return forEachAsync(lengths, (length) => __awaiter(this, void 0, void 0, function* () {
-                    return new Promise((resolve) => {
-                        const name = `test-${testSetName}-${testName}-#${length}`;
-                        // Get random array of values for test
-                        const arr = getTemperaturesKelvin(length);
-                        const durationInMs = measure(name, () => {
-                            test(arr, result => {
-                                resolve(result);
-                                // validate result
-                                if (!tests[testName].validateResult(arr, result)) {
-                                    console.error(`Test '${testSetName}' '${testName}' failed for '${testSetName}' #${length}`);
-                                }
-                            });
-                        });
-                        hooks.forEach((hook, index) => {
-                            hook.onNewSetValue(durationInMs, rowInfo[index]);
+    async function startTest(testName = "map-filter-array", includeNoOperators = false) {
+        hooks.forEach(hook => {
+            hook.onStart(lengths);
+        });
+        // Use test of all testSets
+        return forEachAsync(Object.keys(testSets), async (testSetName) => {
+            const testInfo = testSets[testSetName];
+            if (!testInfo || !testInfo.tests || (!includeNoOperators && !testInfo.hasOperators))
+                return Promise.resolve();
+            const test = testInfo.tests[testName].test;
+            const rowInfo = hooks.map(hook => hook.onNewSet(testSetName, test.toString()));
+            return forEachAsync(lengths, async (length) => {
+                return new Promise((resolve) => {
+                    const name = `test-${testSetName}-${testName}-#${length}`;
+                    // Get random array of values for test
+                    const arr = getTemperaturesKelvin(length);
+                    const durationInMs = measure(name, () => {
+                        test(arr, result => {
+                            resolve(result);
+                            // validate result
+                            if (!tests[testName].validateResult(arr, result)) {
+                                console.error(`Test '${testSetName}' '${testName}' failed for '${testSetName}' #${length}`);
+                            }
                         });
                     });
-                }));
-            }));
+                    hooks.forEach((hook, index) => {
+                        hook.onNewSetValue(durationInMs, rowInfo[index]);
+                    });
+                });
+            });
         });
     }
     /** iterate and execute async function one after eachother */
-    function forEachAsync(arr, cbAsync) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return arr.reduce((prevPromise, value, index) => __awaiter(this, void 0, void 0, function* () {
-                return prevPromise
-                    .then(rafAsync) // add pause to update UI
-                    .then(() => cbAsync(value, index)); // exec next;
-            }), Promise.resolve());
-        });
+    async function forEachAsync(arr, cbAsync) {
+        return arr.reduce(async (prevPromise, value, index) => {
+            return prevPromise
+                .then(rafAsync) // add pause to update UI
+                .then(() => cbAsync(value, index)); // exec next;
+        }, Promise.resolve());
     }
     function rafAsync() {
         //return new Promise(resolve => requestAnimationFrame(resolve)) as TPromise;

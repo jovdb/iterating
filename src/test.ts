@@ -49,7 +49,7 @@ export const testSets: ITestSets = {};
 
 const lengths = [1e3, 5e3, 1e4, 5e4, 1e5, 5e5, 1e6];
 
-function measure(name: string, exec: () => void): number {
+function measure(name: string, exec: () => void ): number {
 	performance.mark(`${name}-start`);
 	exec();
 	performance.mark(`${name}-end`);

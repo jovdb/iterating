@@ -12,7 +12,7 @@ const liquidDegrees = kelvinTemperatures
 
 I know this not the most performant code, but it is easy to read and understand.
 
-To measure the speed and investigate if there are better alternatives, I created tested some alternative principles for iterating over lists with operators (like filter, map, some,...)
+To measure the speed and investigate if there are better alternatives, I created some tests that use alternative principles for iterating over lists with operators (like `filter`, `map`, `some`,...)
 - transducers
 - generators
 - callbags
@@ -28,8 +28,8 @@ For speed comparison with loops that don't use operators, I also included:
 ## transducers:
 'Transducer' is a combination of the words 'TRANSformer' and 'reDUCER'.
 
-With tranducers, all the operators (filter, map, ...) are internally written as a reduce function. 
-When performing a 'filter' and 'map' on an array, the reduce functions of 'filter' and 'map' are chained as one reduce function, so the operators can be performed with 1 iteration, without temporary arrays.
+With tranducers, all the operators (`filter`, `map`, ...) are internally written as a reduce function. 
+When performing a `filter` and `map` on an array, the reduce functions of `filter` and `map` are chained as one reduce function, so the operators can be performed with 1 iteration, without temporary arrays.
 
 This solution works not only on arrays but also on Iterators.
 
@@ -56,12 +56,12 @@ const liquidDegrees = pipe(
     toArray(), // Not needed, also forEach possible
 );
 ```
+Remark: The operators are created with generator functions, from the outside you don't notice this.
 
 ## callbags:
 [Callbags](https://github.com/staltz/callbag-basics) is a spec that describes a pattern that works on both iterable and reactive data.
 
 It also uses Lazy Evaluation
-
 
 ```
 const liquidDegrees = pipe(
@@ -96,7 +96,7 @@ const result = pipe(
 
 ## Findings
 
-- When you don't chain a lot of operators, the standard array methods (filter, map, some, ...) perform well. On Chrome they become slow when using more then 50.000 elements.
+- When you don't chain a lot of operators, the standard array methods (`filter`, `map`, `some`, ...) perform well. On Chrome they become slow when using more then 50.000 elements.
 
 - The overhead of the 'pipeable' array functions is not noticeable.
 
@@ -111,13 +111,13 @@ const result = pipe(
 
 It depends on what you do, on how much elements and on which browser.
 
-If you want to use operators (filter, map, ...), it seems fine to keep using the native **array methods**. 
+If you want to use operators (`filter`, `map`, ...), it seems fine to keep using the native **array methods**. 
 
 - They are quite fast (expect on Chrome when using > 50.000 elements)
 - every developer understands them
 - easy to debug.
 
-If you chain lots of operators or you use the 'some' or 'every' operator, you can try to replacing them with 1 reduce operator.
+If you chain lots of operators or you use the `some` or `every` operator, you can try to replacing them with 1 reduce operator.
 
 If you want lazy evaluation or work with iterators, you need to choose one of these:
 
@@ -131,5 +131,6 @@ If:
 - performance matters
 - you have possibly a large dataset
 - you don't care about readability
-- you have chained many operators
-: then nothing can beat a good old dirty 'for' loop (for-of for iterators)!
+- you have many chained operators
+
+then nothing can beat a good old dirty `for` loop (`for-of` for iterators)!

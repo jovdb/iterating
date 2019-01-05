@@ -1,0 +1,15 @@
+body {
+  font-family: monospace;
+}
+pre {
+  padding: 0.5em;
+  background-color: #eee;
+}
+
+td:nth-child(1) {
+  width: 8em;
+}
+
+td {
+  padding: 0 1em;
+}

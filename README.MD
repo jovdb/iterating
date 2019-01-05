@@ -1,6 +1,6 @@
 # Iterating arrays
 
-[TL;DR...](./docs/index.html)
+[TL;DR...](https://jovdb.github.io/iterating/)
 
 If I look to my code, I see a lot of code in this style:
 
@@ -23,7 +23,7 @@ For speed comparison with loops that don't use operators, I also included:
 - forEach
 - reduce
 
-[Try the alternatives here...](./docs/index.html)
+[Try the alternatives here...](https://jovdb.github.io/iterating/)
 
 ## transducers:
 'Transducer' is a combination of the words 'TRANSformer' and 'reDUCER'.

@@ -911,6 +911,89 @@
     };
 
     /** Combine all in one reduce */
+    testSets["while"] = {
+        hasOperators: false,
+        tests: {
+            "map-filter-forEach": {
+                test: (arr, onComplete) => {
+                    let count = 0;
+                    const length = arr.length;
+                    const doSomething = (_value) => count++;
+                    let i = 0;
+                    while (i < length) {
+                        const kelvin = arr[i];
+                        const celcius = kelvinToCelcius(kelvin);
+                        if (isLiquid(celcius))
+                            doSomething(celcius);
+                        i++;
+                    }
+                    onComplete(count);
+                },
+            },
+            "map-array": {
+                test: (arr, onComplete) => {
+                    const newArr = [];
+                    const length = arr.length;
+                    let i = 0;
+                    while (i < length) {
+                        const kelvin = arr[i];
+                        newArr.push(kelvinToCelcius(kelvin));
+                        i++;
+                    }
+                    onComplete(newArr);
+                },
+            },
+            "map-filter-array": {
+                test: (arr, onComplete) => {
+                    const newArr = [];
+                    const length = arr.length;
+                    let i = 0;
+                    while (i < length) {
+                        const kelvin = arr[i];
+                        const celcius = kelvinToCelcius(kelvin);
+                        if (isLiquid(celcius))
+                            newArr.push(celcius);
+                        i++;
+                    }
+                    onComplete(newArr);
+                },
+            },
+            "map-filter-sum": {
+                test: (arr, onComplete) => {
+                    let sum = 0;
+                    const length = arr.length;
+                    let i = 0;
+                    while (i < length) {
+                        const kelvin = arr[i];
+                        const celcius = kelvinToCelcius(kelvin);
+                        if (isLiquid(celcius))
+                            sum += celcius;
+                        i++;
+                    }
+                    onComplete(sum);
+                },
+            },
+            "map-some": {
+                test: (arr, onComplete) => {
+                    let found = false;
+                    const length = arr.length;
+                    let i = 0;
+                    while (i < length) {
+                        const kelvin = arr[i];
+                        const celcius = kelvinToCelcius(kelvin);
+                        if (isLiquid(celcius)) {
+                            found = true;
+                            break;
+                        }
+                        i++;
+                    }
+                    onComplete(found);
+                },
+            },
+        },
+    };
+
+    /** Combine all in one reduce */
     testSets["for-of"] = {
         hasOperators: false,
         tests: {
@@ -980,7 +1063,7 @@
             "map-filter-forEach": {
                 test: (arr, onComplete) => {
                     let count = 0;
-                    let length = arr.length;
+                    const length = arr.length;
                     const doSomething = (_value) => count++;
                     for (let i = 0; i < length; i++) {
                         const kelvin = arr[i];
@@ -994,7 +1077,7 @@
             "map-array": {
                 test: (arr, onComplete) => {
                     const newArr = [];
-                    let length = arr.length;
+                    const length = arr.length;
                     for (let i = 0; i < length; i++) {
                         const kelvin = arr[i];
                         newArr.push(kelvinToCelcius(kelvin));
@@ -1005,7 +1088,7 @@
             "map-filter-array": {
                 test: (arr, onComplete) => {
                     const newArr = [];
-                    let length = arr.length;
+                    const length = arr.length;
                     for (let i = 0; i < length; i++) {
                         const kelvin = arr[i];
                         const celcius = kelvinToCelcius(kelvin);
@@ -1018,7 +1101,7 @@
             "map-filter-sum": {
                 test: (arr, onComplete) => {
                     let sum = 0;
-                    let length = arr.length;
+                    const length = arr.length;
                     for (let i = 0; i < length; i++) {
                         const kelvin = arr[i];
                         const celcius = kelvinToCelcius(kelvin);
@@ -1031,7 +1114,7 @@
             "map-some": {
                 test: (arr, onComplete) => {
                     let found = false;
-                    let length = arr.length;
+                    const length = arr.length;
                     for (let i = 0; i < length; i++) {
                         const kelvin = arr[i];
                         const celcius = kelvinToCelcius(kelvin);

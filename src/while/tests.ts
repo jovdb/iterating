@@ -3,7 +3,7 @@
 import { kelvinToCelcius, isLiquid } from "../data";
 import { testSets } from "../test";
 
-testSets["for"] = {
+testSets["while"] = {
 	hasOperators: false,
 	tests: {
 		"map-filter-forEach": {
@@ -11,10 +11,12 @@ testSets["for"] = {
 				let count = 0;
 				const length = arr.length;
 				const doSomething = (_value: number) => count++;
-				for (let i = 0; i < length; i++) {
+				let i = 0;
+				while (i < length) {
 					const kelvin = arr[i];
 					const celcius = kelvinToCelcius(kelvin);
 					if (isLiquid(celcius)) doSomething(celcius);
+					i++;
 				}
 				onComplete(count);
 			},
@@ -23,9 +25,11 @@ testSets["for"] = {
 			test: (arr, onComplete) => {
 				const newArr: number[] = [];
 				const length = arr.length;
-				for (let i = 0; i < length; i++) {
+				let i = 0;
+				while (i < length) {
 					const kelvin = arr[i];
 					newArr.push(kelvinToCelcius(kelvin));
+					i++;
 				}
 				onComplete(newArr);
 			},
@@ -34,10 +38,12 @@ testSets["for"] = {
 			test: (arr, onComplete) => {
 				const newArr: number[] = [];
 				const length = arr.length;
-				for (let i = 0; i < length; i++) {
+				let i = 0;
+				while (i < length) {
 					const kelvin = arr[i];
 					const celcius = kelvinToCelcius(kelvin);
 					if (isLiquid(celcius)) newArr.push(celcius);
+					i++;
 				}
 				onComplete(newArr);
 			},
@@ -46,10 +52,12 @@ testSets["for"] = {
 			test: (arr, onComplete) => {
 				let sum = 0;
 				const length = arr.length;
-				for (let i = 0; i < length; i++) {
+				let i = 0;
+				while (i < length) {
 					const kelvin = arr[i];
 					const celcius = kelvinToCelcius(kelvin);
 					if (isLiquid(celcius)) sum += celcius;
+					i++;
 				}
 				onComplete(sum);
 			},
@@ -58,13 +66,15 @@ testSets["for"] = {
 			test: (arr, onComplete) => {
 				let found = false;
 				const length = arr.length;
-				for (let i = 0; i < length; i++) {
+				let i = 0;
+				while (i < length) {
 					const kelvin = arr[i];
 					const celcius = kelvinToCelcius(kelvin);
 					if (isLiquid(celcius)) {
 						found = true;
 						break;
 					}
+					i++;
 				}
 				onComplete(found);
 			},

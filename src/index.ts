@@ -10,6 +10,7 @@ import "./generators/tests";
 import "./callbags/tests";
 import "./reduce/tests";
 import "./foreach/tests";
+import "./while/tests";
 import "./for-of/tests";
 import "./for/tests";
 
